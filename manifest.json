@@ -1,0 +1,15 @@
+{
+  "manifest_version": 2,
+  "name": "Beyblade Parts",
+  "version": "1.6",
+
+  "description": "See all Beyblade parts images, categorized, without logging in.",
+  "content_scripts": [
+    {
+      "matches": ["https://beyblade.takaratomy.co.jp/burst/*"],
+      "js": ["main.js"],
+      "css": ["style.css"]
+    }
+  ],
+"permissions": ["192.168.0.105"]
+}
