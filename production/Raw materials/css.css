@@ -1,0 +1,109 @@
+    body {margin:0;}
+    table {
+        font-size:.7em;font-family:'IBM Plex Sans JP',sans-serif;
+        border-collapse:collapse;
+        position:relative;
+        margin:2em auto;
+    }
+    thead th {
+        padding-top:.25em;
+    }
+    img {
+        width:10em; height:10em;
+        object-fit: cover;
+        vertical-align:bottom;
+        border-radius:.5em;
+        -webkit-user-drag:none;
+    }
+    td {
+        font-size:1em;
+        text-align:center; vertical-align:middle;
+        line-height:1.1;
+        padding:0; margin:0;
+        position:relative;
+
+        &:empty {min-width:.5em;}
+        &[colspan] {padding:.2em 0 .3em 0;}
+        &:has(img)::before {
+            content:'';
+            position:absolute; right:0; top:0;
+            width:2em; height:2em;
+            z-index:1;
+        }
+        &.a:has(img)::before {background:url(https://go-shoot.github.io/X/img/types.svg#att) center / contain no-repeat;}
+        &.d:has(img)::before {background:url(https://go-shoot.github.io/X/img/types.svg#def) center / contain no-repeat;}
+        &.s:has(img)::before {background:url(https://go-shoot.github.io/X/img/types.svg#sta) center / contain no-repeat;}
+        &.b:has(img)::before {background:url(https://go-shoot.github.io/X/img/types.svg#bal) center / contain no-repeat;}
+    }
+    tr::before,tr::after {
+        content:'';
+        vertical-align:middle; display:table-cell;
+        font-size:2em; text-align:center;
+    }
+    :is(#♒︎︎,#♈︎︎,#♋︎︎)+tr td:nth-of-type(4) {color:darkgray;}
+    .non-standard {
+        font-style:italic;
+        &::first-line {font-style:normal;}
+        :is(#♉︎︎,#♈︎︎)+tr &:last-child::first-line {font-style:italic;}
+    }
+    table::before {
+        content:''; z-index:-1;
+        position:absolute; inset:0;
+        --stop1:3.7%; --stop2:19.6%; --stop3:51.8%; --stop4: 83.9%; --stop5: 100%;
+        background:linear-gradient(to right,transparent var(--stop1),
+        peachpuff var(--stop1) var(--stop2),
+        lavender var(--stop2) var(--stop3),
+        paleturquoise var(--stop3) var(--stop4),
+        lavender var(--stop4) var(--stop5),
+        transparent var(--stop5));
+    }
+    caption {
+        pointer-events:none;
+        position:absolute; right:-9em; top:46.1em;
+        z-index:1;
+        text-align:right; 
+
+        div {
+            text-align:left;
+            font-size:3em;line-height:1.1;
+            --stop:7.8%;
+            background:linear-gradient(to right,transparent var(--stop),#aaaaaa88 var(--stop));
+            display:flex; align-items:center;
+            padding-right:.5em;
+            
+            &::before {
+                content:''; z-index:-1;
+                position:absolute; right:calc(100% - 1em); top:50%; transform:translateY(-50%);
+                height:0;
+                border-color:transparent; border-style:solid;
+                border-width:2.25em;
+                border-right-color:#aaaaaa88;
+            }
+            h1 {all:unset;}
+            &::after {
+                content:''; 
+                margin-left:-.5em;
+                width:6em;height:4.5em;
+                background:url(https://go-shoot.github.io/X/img/system-MFB.png) center / contain no-repeat;
+            }
+        }
+        p {
+            margin:.5em;
+        }
+        small {font-size:.6em;}
+    }
+    tr th {
+        font-size:1.25em; font-weight:normal;
+        width:1em;
+        line-height:1.3;
+        &::before {content:attr(title);font-size:1.5em;}
+        &::after {content:attr(season);font-size:2.5em;}
+        &:not([colspan]):last-child {font-size:3em;}
+    }
+    .prize::before {
+        content:'';
+        position:absolute; left:.5em; top:50%; transform:translateY(-50%);
+        width:1.5em; height:1.5em;
+        background:gold; border-radius:9em;
+        z-index: -1;
+    }
