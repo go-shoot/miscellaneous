@@ -6,7 +6,7 @@
 <style>
   img {max-height:30em;}
 </style>
-<drag-gallery>
+<drag-gallery id=instruction>
   <figure>
     <img src='images/CG Instruction/Wheels.jpg' style='max-height:60em'>
     <img src='images/CG Instruction/Wheel N エアブラスト 1.jpg'>
@@ -28,7 +28,11 @@
     <img src='images/CG Instruction/Gear instruction 2.jpg'>
   </figure>
 </drag-gallery>
+<drag-gallery id=package>
+</drag-gallery>
+<a href=#instruction>Instructions</a>
+<a href=#package>Package</a>
 <script type=module>
   import { A, E, O, Q } from 'https://aeoq.github.io/AEOQ.mjs';
-  Q('drag-gallery').open();
+  Q('a[href^="#"]', a => a.onclick = () => Q(a.href).open());
 </script>
