@@ -34,5 +34,5 @@
 <a href=#package>Package</a>
 <script type=module>
   import { A, E, O, Q } from 'https://aeoq.github.io/AEOQ.mjs';
-  Q('a[href^="#"]', a => a.onclick = () => Q(a.href).open());
+  Q('a[href^="#"]', a => a.onclick = () => Q(a.getAttribute('href')).open());
 </script>
