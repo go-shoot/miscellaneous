@@ -93,7 +93,7 @@
     table.Q('label:first-child input').click();
   }
   tabulate({
-    id:'front', title:'Front Weapon',
+    id:'front', title:'フロントウェポン',
     body: [
       ["CFW-01GB","ジャイアントブレード"],
       ["CFW-02PB","パンツァーバレル"],
@@ -109,7 +109,7 @@
       ["GFX-100HS2","ハンマーフォース "],
       ["XX-01X","列斬爪"]
     ]}, {
-      id:'rear', title:'Rear Weapon',
+      id:'rear', title:'リアウェポン',
       body: [
         ["CRW-01GS","ガードスライダー"],
         ["CRW-02TR","ターミネートローラー"],
@@ -117,7 +117,7 @@
         ["CRW-04EB","エスケープブラスター"]
       ]
     }, {
-      id: 'wheel', title: 'Wheel',
+      id: 'wheel', title: 'ホイール',
       head: ['No', '', 'FW diameter', 'RW diameter', 'Diff'],
       body: [
         ["CW-23D","ハイダッシュ","22.8"],
@@ -141,5 +141,9 @@
         ["XX-01X","爆装輪"]
       ]
     }
-  )
+  );
+  Q('table').onclick = ev => {
+    let [tr, tbody] = ['tr','tbody'].map(el => ev.target.closest(el));
+    tr && tbody && open(`https://www.google.com/search?q=クラッシュギア ${tr.children[1].textContent} ${tbody.title}&udm=2`);
+  }
 </script>
