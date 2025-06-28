@@ -97,12 +97,13 @@
     table.Q('label:first-child input').click();
   }
   Promise.all([
-    fetch('custom.json').then(resp => resp.json()).then(data => tabulate(...data))
+    fetch('custom.json').then(resp => resp.json()).then(data => tabulate(...data)),
+    fetch('gear.json').then(resp => resp.json()).then(data => tabulate(...data))
   ]).then(() =>
     Q('table', table => table.onclick = ev => {
       let [tr, tbody] = ['tr','tbody'].map(el => ev.target.closest(el));
-      let label = tbody && table.Q(`label:has(input[value=${tbody.id}])`);
-      tr && label && open(`https://www.google.com/search?q=クラッシュギア ${tr.children[1].textContent} ${label.textContent}&udm=2`);
+      let label = tbody ? table.Q(`label:has(input[value=${tbody.id}])`) : null;
+      tr && open(`https://www.google.com/search?q=クラッシュギア ${tr.children[1].textContent} ${label?.textContent ?? ''}&udm=2`);
     }
   ));
 </script>
