@@ -74,7 +74,7 @@
 <script type="module">
   import {Q,E} from 'https://aeoq.github.io/AEOQ.mjs'
   const tabulate = (...tables) => {
-    let attrs = !Array.isArray(tables.at(-1)) && !tables.at(-1).data && tables.pop();
+    let attrs = !Array.isArray(tables.at(-1)) && !tables.at(-1).body && tables.pop();
     let table = 
     E('table', [tables.length > 1 ? 
       E('caption', ...tables.map((table, i) =>
@@ -82,7 +82,7 @@
           E('input', {type: 'radio', name: 'tables', value: table.body ? table.id : `t${i}`}),
           table.body ? table.title : `t${i}`
         ])
-    )) : '', ...tables.map((table, i) => 
+      )) : '', ...tables.map((table, i) => 
       E('tbody', table.id ? {id: table.id} : '', [table.head ? 
         E('tr', table.head.map(th => 
           E('th', th)
