@@ -79,7 +79,7 @@
           table.body ? table.title : `t${i}`
         ])
     )) : '', ...tables.map((table, i) => 
-      E('tbody', table.body ? (({body, ...attrs}) => attrs)(table) : '', [table.head ? 
+      E('tbody', table.id ? {id: table.id} : '', [table.head ? 
         E('tr', table.head.map(th => 
           E('th', th)
         )) : '', ...(table.body ?? table).map(tr => 
