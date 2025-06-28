@@ -70,6 +70,8 @@
     <img src='images/package/G05凱輝.jpg'>
   </figure>
 </drag-gallery>
+<drag-gallery id=gear hidden></drag-gallery>
+<drag-gallery id=custom hidden></drag-gallery>
 <a href=#instruction>Instructions</a>
 <a href=#package>Package</a>
 <script type="module">
@@ -89,19 +91,17 @@
           E('th', th)
         )) : '', ...(table.body ?? table).map(tr => 
         E('tr', tr.map(td => 
-          E('td', td.replace("　",`
-`))
+          E('td', td)
         ))
       )])
     )], attrs || {});
     table.onchange = ev => ev.target.checked && table.Q('tbody', body => body.hidden = body.id != ev.target.value);
-    Q('body').append(table);
     table.Q('label:first-child input')?.click();
+    return table;
   }
-  Promise.all([
-    fetch('custom.json').then(resp => resp.json()).then(data => tabulate(...data)),
-    fetch('gear.json').then(resp => resp.json()).then(data => tabulate(...data))
-  ]).then(() =>
+  Promise.all(['custom','gear'].map(w =>
+    fetch(`${w}.json`).then(resp => resp.json()).then(data => Q(`#${w}`).append(tabulate(...data)))
+  )).then(() =>
     Q('table', table => table.onclick = ev => {
       let [tr, tbody] = ['tr','tbody'].map(el => ev.target.closest(el));
       let label = tbody ? table.Q(`label:has(input[value='${tbody.id}'])`) : null;
