@@ -88,7 +88,7 @@
           E('th', th)
         )) : '', ...(table.body ?? table).map(tr => 
         E('tr', tr.map(td => 
-          E('td', td.replace("\n",`
+          E('td', td.replace("　",`
 `))
         ))
       )])
@@ -103,7 +103,7 @@
   ]).then(() =>
     Q('table', table => table.onclick = ev => {
       let [tr, tbody] = ['tr','tbody'].map(el => ev.target.closest(el));
-      let label = tbody ? table.Q(`label:has(input[value=${tbody.id}])`) : null;
+      let label = tbody ? table.Q(`label:has(input[value='${tbody.id}'])`) : null;
       tr && open(`https://www.google.com/search?q=クラッシュギア ${tr.children[1].textContent} ${label?.textContent ?? ''}&udm=2`);
     }
   ));
