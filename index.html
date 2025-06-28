@@ -88,13 +88,14 @@
           E('th', th)
         )) : '', ...(table.body ?? table).map(tr => 
         E('tr', tr.map(td => 
-          E('td', td)
+          E('td', td.replace("\n",`
+`))
         ))
       )])
     )], attrs || {});
     table.onchange = ev => ev.target.checked && table.Q('tbody', body => body.hidden = body.id != ev.target.value);
     Q('body').append(table);
-    table.Q('label:first-child input').click();
+    table.Q('label:first-child input')?.click();
   }
   Promise.all([
     fetch('custom.json').then(resp => resp.json()).then(data => tabulate(...data)),
