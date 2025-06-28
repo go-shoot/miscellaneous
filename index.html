@@ -74,7 +74,9 @@
 <script type="module">
   import {Q,E} from 'https://aeoq.github.io/AEOQ.mjs'
   const tabulate = (...tables) => {
-    let table = E('table', [tables.length > 1 ? 
+    let attrs = !Array.isArray(tables.at(-1)) && !tables.at(-1).data && tables.pop();
+    let table = 
+    E('table', [tables.length > 1 ? 
       E('caption', ...tables.map((table, i) =>
         E('label', [
           E('input', {type: 'radio', name: 'tables', value: table.body ? table.id : `t${i}`}),
@@ -89,7 +91,7 @@
           E('td', td)
         ))
       )])
-    )]);
+    )], attrs || {});
     table.onchange = ev => ev.target.checked && table.Q('tbody', body => body.hidden = body.id != ev.target.value);
     Q('body').append(table);
     table.Q('label:first-child input').click();
@@ -99,7 +101,8 @@
   ]).then(() =>
     Q('table', table => table.onclick = ev => {
       let [tr, tbody] = ['tr','tbody'].map(el => ev.target.closest(el));
-      tr && tbody && open(`https://www.google.com/search?q=クラッシュギア ${tr.children[1].textContent} ${tbody.title}&udm=2`);
+      let label = tbody && table.Q(`label:has(input[value=${tbody.id}])`);
+      tr && label && open(`https://www.google.com/search?q=クラッシュギア ${tr.children[1].textContent} ${label.textContent}&udm=2`);
     }
   ));
 </script>
