@@ -5,6 +5,8 @@
 <script src=https://aeoq.github.io/drag-gallery/script.js type=module></script>
 <style>
   img {max-height:30em;}
+  caption {white-space:nowrap;}
+  table {font-family:monospace;}
 </style>
 <drag-gallery id=instruction hidden>
   <figure>
@@ -92,58 +94,12 @@
     Q('body').append(table);
     table.Q('label:first-child input').click();
   }
-  tabulate({
-    id:'front', title:'フロントウェポン',
-    body: [
-      ["CFW-01GB","ジャイアントブレード"],
-      ["CFW-02PB","パンツァーバレル"],
-      ["CFW-03BH","バンプホーン"],
-      ["CFW-04SL","ソニックランサー"],
-      ["CFW-05SC","スイングカッター"],
-      ["CFW-06BK/N","爆龍爪改"],
-      ["CFW-07BC","ビークカリバー"],
-      ["CFW-__MC","モンスタークロウ"],
-      ["XX-02W","クラッシャーフラット"],
-      ["ZT-20STB","フラッシュブレイカー "],
-      ["ZT-26MZD","デルタウインガー"],
-      ["GFX-100HS2","ハンマーフォース "],
-      ["XX-01X","列斬爪"]
-    ]}, {
-      id:'rear', title:'リアウェポン',
-      body: [
-        ["CRW-01GS","ガードスライダー"],
-        ["CRW-02TR","ターミネートローラー"],
-        ["CRW-03TD","トライデリンジャー"],
-        ["CRW-04EB","エスケープブラスター"]
-      ]
-    }, {
-      id: 'wheel', title: 'ホイール',
-      head: ['No', '', 'FW diameter', 'RW diameter', 'Diff'],
-      body: [
-        ["CW-23D","ハイダッシュ","22.8"],
-        ["CW-23DD","ドラゴン","22.8"],
-        ["CW-23BD","ビートル","22.8"],
-        ["CW-23TD","サンダー","23.2"],
-        ["CW-25FC","ファイヤー","24.8"],
-        ["CW-25LC","レオン","25.0"],
-        ["CW-25AC","アサルト","25.2"],
-        ["CW-25W","ウェイトアジャスト","25.0"],
-        ["CW-25A","エアブラスト","25.0"],
-        ["CW-30KS","クラーケン","25.8","29.9","4.1"],
-        ["CW-33AS","アーマード","25.8","33.0","7.2"],
-        ["CW-33SS","シャーク","26.4","33.4","7.0"],
-        ["CW-35S","ハイスピン","26.8","35.8","9.0"],
-        ["","ハイカスタム","26.0","32.8","6.8"],
-        ["XX-02W","ワイルド","25.0","26.4"],
-        ["ZT-20STB","ボルト"],
-        ["ZT-26MZD","マイティ"],
-        ["GFX-100HS2","ファング"],
-        ["XX-01X","爆装輪"]
-      ]
+  Promise.all([
+    fetch('custom.json').then(resp => resp.json()).then(data => tabulate(...data))
+  ]).then(() =>
+    Q('table', table => table.onclick = ev => {
+      let [tr, tbody] = ['tr','tbody'].map(el => ev.target.closest(el));
+      tr && tbody && open(`https://www.google.com/search?q=クラッシュギア ${tr.children[1].textContent} ${tbody.title}&udm=2`);
     }
-  );
-  Q('table').onclick = ev => {
-    let [tr, tbody] = ['tr','tbody'].map(el => ev.target.closest(el));
-    tr && tbody && open(`https://www.google.com/search?q=クラッシュギア ${tr.children[1].textContent} ${tbody.title}&udm=2`);
-  }
+  ));
 </script>
