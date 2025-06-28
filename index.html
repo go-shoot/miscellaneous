@@ -93,7 +93,8 @@
           E('th', th)
         )) : '', ...(table.body ?? table).map(tr => 
         E('tr', tr.map(td => 
-          E('td', td)
+          E('td', td.replace("　",`
+`))
         ))
       )])
     )], attrs || {});
