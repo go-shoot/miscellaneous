@@ -1,0 +1,12 @@
+hr+section img
+{width:10%;}
+.content .mainCol>input[type='text']
+{width:15%;margin-left:10px;}
+.content .mainCol>input+button
+{font-size:20px;border:2px solid black;margin:0 5px;height:48px;width:48px;}
+.content .mainCol>select
+{width:70%;}
+.content .mainCol>input[type='text'],
+.content .mainCol>input+button,
+.content .mainCol>select
+{border-radius:30px;vertical-align:middle;}

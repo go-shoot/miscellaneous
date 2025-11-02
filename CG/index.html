@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>クラッシュギア</title>
+<script src=https://aeoq.github.io/dialog-gallery/script.js type=module></script>
+<style>
+  img {max-height:30em;}
+  caption {
+    white-space:nowrap;
+    margin-bottom:.5em;
+  }
+  table {
+    font-family:monospace;
+    border-collapse: collapse;
+    tr:nth-child(even) {background:dimgray;}
+    td {
+      padding:0 .5em; 
+      white-space:pre; line-height:1.4;
+      &:nth-child(5) {text-align:center;}
+    }
+  }
+  nav {
+    display:flex; justify-content:center; flex-direction:column;
+    >* {text-align:center; padding:1em; font-size:2em;}
+  }
+</style>
+<dialog-gallery id=instruction hidden>
+  <figure>
+    <img src='instruction/Wクラーケン・レオン・ウェイトアジャスト・サンダー.jpg' style='max-height:60em'>
+    <img src='instruction/Wエアブラスト-1.jpg'>
+    <img src='instruction/Wエアブラスト-2.jpg'>
+    <img src='instruction/Wハイスペック・ダッシュ・スピン.jpg'>
+  </figure>
+  <figure>
+    <img src='instruction/FW01~05.jpg' style='max-height:60em'>
+    <img src='instruction/FW06-1.jpg'>
+    <img src='instruction/FW06-2.jpg'>
+    <img src='instruction/RW01~02.jpg'>
+    <img src='instruction/RW03-1.jpg'>
+    <img src='instruction/RW03-2.jpg'>
+    <img src='instruction/RW04-1.jpg'>
+    <img src='instruction/RW04-2.jpg'>
+  </figure>
+  <figure>
+    <img src='instruction/Gear-1.jpg'>
+    <img src='instruction/Gear-2.jpg'>
+  </figure>
+</dialog-gallery>
+<dialog-gallery id=package hidden>
+  <figure>
+    <img src='G4j4Fifa8AMQzMJ' alt="クラッシュギア アサルトホイール">
+    <img src='G4j4Fica8AEfwi-' alt="クラッシュギア アサルトホイール">
+    <img src='G4j4FihbYAAKHC1' alt="クラッシュギア ファイヤーホイール">
+    <img src='G4j4Fica8AI6MKa' alt="クラッシュギア ファイヤーホイール">
+    <img src='G4j4ORIa8AIHBgi' alt="クラッシュギア レオンホイール">
+    <img src='G4j4OLWaoAAi0nL' alt="クラッシュギア レオンホイール">
+  </figure>
+  <figure>
+    <img src='G4j4ORXbEAAbvSm' alt="クラッシュギア サンダーホイール">
+    <img src='G4j4OLPbAAEToji' alt="クラッシュギア サンダーホイール">
+    <img src='G4j4Rgda8AYeF48' alt="クラッシュギア ドラゴンホイール">
+    <img src='G4j4RgZaQAAnXgX' alt="クラッシュギア ドラゴンホイール">
+    <img src='G4j4Rgma8AECWDC' alt="クラッシュギア ビートルホイール">
+    <img src='G4j4RhBaMAESBLQ' alt="クラッシュギア ビートルホイール">
+  </figure>
+  <figure>
+    <img src='G4j4YVDa8AEEmAr' alt="クラッシュギア アーマードホイール">
+    <img src='G4j4YVIaIAAiigM' alt="クラッシュギア アーマードホイール">
+    <img src='G4j4YVcbIAA8S1K' alt="クラッシュギア クラーケンホイール">
+    <img src='G4j4YVWbMAAmDDd' alt="クラッシュギア クラーケンホイール">
+    <img src='G4j4anxa8AArsuD' alt="クラッシュギア シャークホイール">
+    <img src='G4j4anta8AA5kpa' alt="クラッシュギア シャークホイール">
+  </figure>
+  <figure>
+    <img src='G4j4VpwacAAfJFf' alt="クラッシュギア ウェイトアジャストホイール">
+    <img src='G4j4VpvboAA6dsp' alt="クラッシュギア ウェイトアジャストホイール">
+    <img src='G4j4VpzbAAA_OPB' alt="クラッシュギア エアブラストホイール">
+    <img src='G4j4Vp1aQAA-vbp' alt="クラッシュギア エアブラストホイール">
+  </figure>
+  <figure>
+    <img src='G4j4x07bEAAsuro'>
+    <img src='G4j4x0ea8AA99wq'>
+    <img src='G4j4x0naQAAIpJr'>
+    <img src='G4j4x0qakAACTAu'>
+    <img src='G4j4zXrbAAA6sIH'>
+  </figure>
+</dialog-gallery>
+<dialog-gallery id=gear hidden></dialog-gallery>
+<dialog-gallery id=custom hidden></dialog-gallery>
+<nav>
+  <a href=#instruction>Instruction</a>
+  <a href=#package>Package</a>
+  <a href=#gear>Gear</a>
+  <a href=#custom>Custom</a>
+</nav>
+<script type="module">
+  import {Q,E} from 'https://aeoq.github.io/AEOQ.mjs'
+  Q('img[src^=G4]', img => img.src = `https://pbs.twimg.com/media/${img.getAttribute('src')}?format=jpg&name=large`);
+  const tabulate = (...tables) => {
+    let attrs = !Array.isArray(tables.at(-1)) && !tables.at(-1).body && tables.pop();
+    let table = 
+    E('table', [tables.length > 1 ? 
+      E('caption',
+        E.radios(tables.map((table, i) => ({
+          name: 'tables', value: table.body ? table.id : `t${i}`, checked: i === 0,
+          label: table.body ? table.title : `t${i}`
+        }))
+      )) : '', ...tables.map((table, i) => 
+      E('tbody', table.id ? {id: table.id} : '', [table.head ? 
+        E('tr', table.head.map(th => 
+          E('th', th)
+        )) : '', ...(table.body ?? table).map(tr => 
+        E('tr', tr.map(td => 
+          E('td', td.replace("　",`
+`))
+        ))
+      )])
+    )], attrs || {});
+    table.onchange = ev => ev.target.checked && table.Q('tbody', body => body.hidden = body.id != ev.target.value);
+    table.Q('label:first-child input')?.dispatchEvent(new Event('change', {bubbles: true}));
+    return table;
+  }
+  Promise.all(['custom','gear'].map(w =>
+    fetch(`${w}.json`).then(resp => resp.json()).then(data => Q(`#${w}`).append(tabulate(...data)))
+  )).then(() =>
+    Q('table', table => table.ondblclick = ev => {
+      let [tr, tbody] = ['tr','tbody'].map(el => ev.target.closest(el));
+      let label = tbody ? table.Q(`label:has(input[value='${tbody.id}'])`) : null;
+      tr && open(`https://www.google.com/search?q=クラッシュギア ${tr.children[1].textContent} ${label?.textContent ?? ''}&udm=2`);
+    }
+  ));
+</script>
